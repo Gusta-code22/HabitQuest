@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
+@Table(name = "\"user\"")
 @Entity
 @Data
 public class User {
