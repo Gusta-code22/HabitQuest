@@ -6,10 +6,7 @@ import br.com.Gusta_code22.habitquest.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -22,6 +19,18 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> saveUser(@RequestBody UserRequestDTO dto) throws Exception {
         UserResponseDTO responseDTO = userService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        userService.deleteUser(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDTO> findUserById(@PathVariable Long id) throws Exception{
+        UserResponseDTO userDto = userService.findById(id);
+        return  ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
 
 }

@@ -24,7 +24,21 @@ public class UserService {
         user.setEmail(userRequestDTO.email());
         userRepository.save(user);
         return new UserResponseDTO(
-                user.getId(), user.getName(), user.getName(), user.getXp(), user.getLevel()
+                user.getId(), user.getName(), user.getEmail(), user.getXp(), user.getLevel()
+        );
+    }
+
+    public void deleteUser(Long id){
+        userRepository.deleteById(id);
+    }
+
+    public UserResponseDTO findById(Long id) throws Exception {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new Exception("User Not Found"));
+
+
+        return new UserResponseDTO(
+                user.getId(), user.getName(), user.getEmail(), user.getXp(), user.getLevel()
         );
     }
 }

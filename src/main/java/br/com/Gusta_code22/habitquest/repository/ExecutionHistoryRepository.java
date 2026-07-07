@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ExecutionHistoryRepository extends JpaRepository<ExecutionHistory, Long> {
 
-    boolean existsByHabitAndHourHabitBetween(Long habitId, LocalDateTime start, LocalDateTime end);
+    boolean existsByHabitIdAndHourHabitBetween(Long habitId, LocalDateTime start, LocalDateTime end);
 
     @Query("SELECT e FROM ExecutionHistory e WHERE e.habit.id = :habitId ORDER BY e.hourHabit DESC")
     List<ExecutionHistory> findLastExecutionByHabitId(@Param("habitId") Long habitId);

@@ -1,14 +1,17 @@
 package br.com.Gusta_code22.habitquest.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class Habit {
 
     @Id
@@ -21,7 +24,7 @@ public class Habit {
     @Column
     private String description;
 
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime creationDate;
 
