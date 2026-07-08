@@ -14,7 +14,7 @@ public class ExecutionHistoryController {
     private final ExecutionHistoryService service;
 
     @PostMapping("/habit/{habitId}")
-    public ResponseEntity<?> registerExecution(@PathVariable Long habitId) throws Exception {
+    public ResponseEntity<?> registerExecution(@PathVariable Long habitId){
         service.registrarExecucao(habitId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

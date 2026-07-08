@@ -3,6 +3,8 @@ package br.com.Gusta_code22.habitquest.service;
 import br.com.Gusta_code22.habitquest.domain.User;
 import br.com.Gusta_code22.habitquest.dto.UserRequestDTO;
 import br.com.Gusta_code22.habitquest.dto.UserResponseDTO;
+import br.com.Gusta_code22.habitquest.exception.EmailAlreadyExistsException;
+import br.com.Gusta_code22.habitquest.exception.UserNotFoundException;
 import br.com.Gusta_code22.habitquest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,9 +15,9 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserResponseDTO save(UserRequestDTO userRequestDTO) throws Exception {
+    public UserResponseDTO save(UserRequestDTO userRequestDTO) {
         if (userRepository.findByEmail(userRequestDTO.email()).isPresent()){
-            throw new Exception("A user with this email already exists");
+            throw new EmailAlreadyExistsException("A user with this email already exists");
         }
         User user = new User();
         user.setXp(0);
@@ -32,9 +34,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserResponseDTO findById(Long id) throws Exception {
+    public UserResponseDTO findById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new Exception("User Not Found"));
+                .orElseThrow(() -> new UserNotFoundException("User Not Found"));
 
 
         return new UserResponseDTO(

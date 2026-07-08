@@ -3,6 +3,8 @@ package br.com.Gusta_code22.habitquest.service;
 import br.com.Gusta_code22.habitquest.domain.ExecutionHistory;
 import br.com.Gusta_code22.habitquest.domain.Habit;
 import br.com.Gusta_code22.habitquest.domain.User;
+import br.com.Gusta_code22.habitquest.exception.HabitAlreadyExecutedException;
+import br.com.Gusta_code22.habitquest.exception.HabitNotFoundException;
 import br.com.Gusta_code22.habitquest.repository.ExecutionHistoryRepository;
 import br.com.Gusta_code22.habitquest.repository.HabitRepository;
 import br.com.Gusta_code22.habitquest.repository.UserRepository;
@@ -22,7 +24,7 @@ public class ExecutionHistoryService {
     private final HabitRepository habitRepository;
     private final UserRepository userRepository;
 
-    public void registrarExecucao(Long habitId) throws Exception {
+    public void registrarExecucao(Long habitId){
 
         LocalDateTime today = LocalDateTime.now();
 
@@ -31,7 +33,7 @@ public class ExecutionHistoryService {
         updateStreak(habitId);
 
         Habit habit = habitRepository.findById(habitId)
-                .orElseThrow(() -> new Exception("Hábit not found"));
+                .orElseThrow(() -> new HabitNotFoundException("Hábit not found"));
 
         rewardUser(habit);
 
@@ -42,24 +44,24 @@ public class ExecutionHistoryService {
 
     }
 
-    private void thatItWasAlreadyExecutedToday(Long id) throws Exception {
+    private void thatItWasAlreadyExecutedToday(Long id) {
 
         LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
         LocalDateTime endOfDay = LocalDate.now().atTime(LocalTime.MAX);
 
-        boolean alreadyExecutedToday = historyRepository.existsByHabitAndHourHabitBetween(
+        boolean alreadyExecutedToday = historyRepository.existsByHabitIdAndHourHabitBetween(
                 id, startOfDay, endOfDay
         );
 
         if (alreadyExecutedToday) {
-            throw new Exception("You have already completed this habit today! Come back tomorrow.");
+            throw new HabitAlreadyExecutedException("You have already completed this habit today! Come back tomorrow.");
         }
     }
 
-    private void updateStreak(Long habitId) throws Exception {
+    private void updateStreak(Long habitId)  {
 
         Habit habit = habitRepository.findById(habitId)
-                .orElseThrow(() -> new Exception("Hábit not found"));
+                .orElseThrow(() -> new HabitNotFoundException("Hábit not found"));
 
         List<ExecutionHistory> executionHistories = historyRepository.findLastExecutionByHabitId(habitId);
 
