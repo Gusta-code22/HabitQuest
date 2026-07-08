@@ -2,6 +2,7 @@ package br.com.Gusta_code22.habitquest.common;
 
 import br.com.Gusta_code22.habitquest.dto.ApiError;
 import br.com.Gusta_code22.habitquest.exception.*;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "br.com.Gusta_code22.habitquest.controller")
 public class GlobalExceptionHandler {
-    
+
     @ExceptionHandler(HabitAlreadyExecutedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleHabitAlreadyExecutedException(HabitAlreadyExecutedException ex){
@@ -86,6 +87,7 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
+    @Hidden
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiError handleException(Exception e){
