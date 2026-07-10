@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,8 +31,8 @@ public class ExecutionHistoryController {
             @ApiResponse(responseCode = "404", description = "Habit not found",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
-    public ResponseEntity<?> registerExecution(@PathVariable Long habitId){
-        service.registrarExecucao(habitId);
+    public ResponseEntity<?> registerExecution(@PathVariable Long habitId, JwtAuthenticationToken token){
+        service.registrarExecucao(habitId, token);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

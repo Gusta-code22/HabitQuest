@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,8 +33,9 @@ public class HabitController {
             @ApiResponse(responseCode = "400", description = "Invalid request data or business rule violation",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
-    public ResponseEntity<HabitResponseDTO> createHabit(@RequestBody @Valid HabitRequestDTO requestDTO){
-        HabitResponseDTO responseDTO = service.createHabit(requestDTO);
+    public ResponseEntity<HabitResponseDTO> createHabit(@RequestBody @Valid HabitRequestDTO requestDTO,
+                                                        JwtAuthenticationToken token){
+        HabitResponseDTO responseDTO = service.createHabit(requestDTO, token);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
@@ -44,8 +46,9 @@ public class HabitController {
             @ApiResponse(responseCode = "404", description = "Habit not found",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        service.deleteUser(id);
+    public ResponseEntity<?> delete(@PathVariable Long id,
+                                    JwtAuthenticationToken token){
+        service.deleteHabit(id, token);
         return ResponseEntity.ok().build();
     }
 
@@ -57,8 +60,8 @@ public class HabitController {
             @ApiResponse(responseCode = "404", description = "Habit not found",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
-    public ResponseEntity<HabitResponseDTO> findUserById(@PathVariable Long id){
-        HabitResponseDTO responseDTO = service.findById(id);
+    public ResponseEntity<HabitResponseDTO> findUserById(@PathVariable Long id, JwtAuthenticationToken token){
+        HabitResponseDTO responseDTO = service.findById(id, token);
         // Quick note: Changed from HttpStatus.CREATED to OK here for accurate GET behavior
         return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }

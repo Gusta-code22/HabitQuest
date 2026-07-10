@@ -1,8 +1,9 @@
 package br.com.Gusta_code22.habitquest.domain;
 
+import br.com.Gusta_code22.habitquest.dto.LoginRequest;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -32,5 +33,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Habit> habits;
+
+    public boolean isLoginCorrect(LoginRequest request, BCryptPasswordEncoder encoder){
+        return encoder.matches(request.password(), this.password);
+    }
 
 }

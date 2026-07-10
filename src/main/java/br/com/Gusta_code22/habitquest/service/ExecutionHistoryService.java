@@ -9,12 +9,16 @@ import br.com.Gusta_code22.habitquest.repository.ExecutionHistoryRepository;
 import br.com.Gusta_code22.habitquest.repository.HabitRepository;
 import br.com.Gusta_code22.habitquest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -24,16 +28,26 @@ public class ExecutionHistoryService {
     private final HabitRepository habitRepository;
     private final UserRepository userRepository;
 
-    public void registrarExecucao(Long habitId){
+    public void registrarExecucao(Long habitId, JwtAuthenticationToken token){
 
+        Long currentUserId = Long.valueOf(token.getName());
+
+        // 2. Busca o hábito primeiro para podermos validar o dono
+        Habit habit = habitRepository.findById(habitId)
+                .orElseThrow(() -> new HabitNotFoundException("Habit not found"));
+
+        // 3. VALIDAÇÃO DE SEGURANÇA: O hábito pertence a quem está logado?
+        if (!Objects.equals(habit.getUser().getId(), currentUserId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "You cannot register execution in another player's habit!"
+            );
+        }
         LocalDateTime today = LocalDateTime.now();
 
         thatItWasAlreadyExecutedToday(habitId);
 
         updateStreak(habitId);
 
-        Habit habit = habitRepository.findById(habitId)
-                .orElseThrow(() -> new HabitNotFoundException("Hábit not found"));
 
         rewardUser(habit);
 

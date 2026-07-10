@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -44,8 +45,8 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Player not found",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        userService.deleteUser(id);
+    public ResponseEntity<?> delete(@PathVariable Long id, JwtAuthenticationToken token){
+        userService.deleteUser(id, token);
         return ResponseEntity.ok().build();
     }
 
@@ -57,8 +58,8 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Player not found",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
-    public ResponseEntity<UserResponseDTO> findUserById(@PathVariable Long id){
-        UserResponseDTO userDto = userService.findById(id);
+    public ResponseEntity<UserResponseDTO> findUserById(@PathVariable Long id, JwtAuthenticationToken token){
+        UserResponseDTO userDto = userService.findById(id, token);
         // Quick note: Changed HttpStatus from CREATED to OK here since it's a GET request
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }

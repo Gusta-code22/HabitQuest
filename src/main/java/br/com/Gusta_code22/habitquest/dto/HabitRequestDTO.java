@@ -11,9 +11,6 @@ public record HabitRequestDTO(
         String name,
 
         @Size(max = 255, message = "Description cannot exceed 255 characters")
-        String description,
-
-        @NotNull(message = "User ID is required to link habit to player")
-        Long userId
+        String description
 ) {
 }

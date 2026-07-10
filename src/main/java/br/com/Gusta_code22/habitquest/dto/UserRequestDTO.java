@@ -12,6 +12,10 @@ public record UserRequestDTO(
 
         @NotBlank(message = "Email is mandatory")
         @Email(message = "The format of the email is invalid")
-        String email
+        String email,
+
+        @NotBlank(message = "Password is mandatory")
+        @Size(min = 2, message = "Password must be at least 2 characters")
+        String password
 ) {
 }

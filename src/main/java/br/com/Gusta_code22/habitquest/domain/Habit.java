@@ -1,6 +1,5 @@
 package br.com.Gusta_code22.habitquest.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
