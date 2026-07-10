@@ -6,10 +6,18 @@ meta {
 
 post {
   url: http://localhost:8080/login
-  body: none
-  auth: inherit
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "aloy@gmail.com",
+    "password": "12345"
+  }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

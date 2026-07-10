@@ -7,21 +7,26 @@ meta {
 post {
   url: http://localhost:8080/habits
   body: json
-  auth: none
+  auth: bearer
 }
 
 headers {
   Content-Type: application/json
 }
 
+auth:bearer {
+  token: eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJoYWJpdHF1ZXN0LWJhY2tlbmQiLCJzdWIiOiIyIiwiZXhwIjoxNzgzNzgyMjA3LCJpYXQiOjE3ODM2OTU4MDcsInNjb3BlIjoiUGxheWVyIn0.adqc_n4J3U2QTAGSHg-L4k-Z2HnRLs_Kt9mNJIdz11PSErrqg-GrGm53O2gJAhx4ZRISYwcEF-SAoxbxdXyF-8zcuPCgQNJG3MIzuIfQR9UiPe027TkL5QfvSNpUrhuZG5j5maaLLk9G5Fa1zydsS-BLE5D_1lfKWwtsVaqVu13pd7s4SCf9y0YToLlc8RrlluFfRPvLG9VlOoIIj2Wbxc5pJqMY7RWOSnOLkDR752IW2_9cFq6mWOGcei4nUeMH4i12_762lwwbM7mxzfZqL1VTo-jGravHkneQKCs-FJ0WxcOL1-95Adscy_136f_q38ZuyeEKaYL6edpitvEROIkrv2K8ii5V58SF7hq1QW-AnN1MXk_qObGNC6cQQE2g1eqOdQCP1f9uds3hyJKysM-ukvZdcLRMz7hElrkst0VY_L2L_sPmo2MEprZ9QK6kUE21QbUqEH2QJgwsnXbG_slKO7lxKHWWRNAuUIp2SqScGh5TeIMMFNA1GgXmpLdxCXWfgJOThvcJ547O9RTTfbKr8B5Tf6KMQq2lrlFFfZOUVnwRY9uW0TDOAeJPoQT90tOR65TMDMclWiyLqaC1vSv0ixukvdWexF84gbvb1SjCcz-hqpE6ZRFB5TY2U5FPu4ByjQ7efMk0o3rsMwDIdyyi8oWuM9Akwhz9FzOHQ-M
+}
+
 body:json {
   {
-  	"name": "asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-  	"description": "Nao esquecer",
-  	"userId": 4
+    "name": "Jogar horizon Forbiden west",
+    "description": "Nao esquecer",
+    "userId": 2
   }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
