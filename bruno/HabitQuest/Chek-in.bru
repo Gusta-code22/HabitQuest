@@ -1,0 +1,19 @@
+meta {
+  name: Chek-in
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/executions/habit/:habitId
+  body: none
+  auth: none
+}
+
+params:path {
+  habitId: 3
+}
+
+settings {
+  encodeUrl: true
+}

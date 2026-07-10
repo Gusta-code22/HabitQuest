@@ -1,0 +1,19 @@
+meta {
+  name: Delete User
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:8080/users/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 0
+}
+
+settings {
+  encodeUrl: true
+}

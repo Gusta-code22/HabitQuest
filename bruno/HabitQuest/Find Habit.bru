@@ -1,0 +1,19 @@
+meta {
+  name: Find Habit
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:8080/habits/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 6
+}
+
+settings {
+  encodeUrl: true
+}

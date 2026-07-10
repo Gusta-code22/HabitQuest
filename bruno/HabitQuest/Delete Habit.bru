@@ -1,0 +1,19 @@
+meta {
+  name: Delete Habit
+  type: http
+  seq: 6
+}
+
+delete {
+  url: http://localhost:8080/habits/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 1
+}
+
+settings {
+  encodeUrl: true
+}
