@@ -22,6 +22,9 @@ public class User {
     private String email;
 
     @Column
+    private String password;
+
+    @Column
     private Integer xp = 0;
 
     @Column
