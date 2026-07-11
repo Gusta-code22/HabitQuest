@@ -23,8 +23,13 @@ public class HabitService {
     private final UserRepository userRepository;
 
     public HabitResponseDTO createHabit(HabitRequestDTO requestDTO, JwtAuthenticationToken token) {
-        User user = userRepository.findById(Long.valueOf(token.getName()))
+        Long currentUserId = Long.valueOf(token.getName());
+        User user = userRepository.findById(currentUserId)
                 .orElseThrow(() -> new UserNotFoundException("User Not Found"));
+
+        if (!Objects.equals(user.getId(), currentUserId)){
+            throw new ForbiddenException("You cannot create a habit for another player");
+        }
 
 
         Habit habit = new Habit();
