@@ -32,11 +32,9 @@ public class ExecutionHistoryService {
 
         Long currentUserId = Long.valueOf(token.getName());
 
-        // 2. Busca o hábito primeiro para podermos validar o dono
         Habit habit = habitRepository.findById(habitId)
                 .orElseThrow(() -> new HabitNotFoundException("Habit not found"));
 
-        // 3. VALIDAÇÃO DE SEGURANÇA: O hábito pertence a quem está logado?
         if (!Objects.equals(habit.getUser().getId(), currentUserId)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
                     "You cannot register execution in another player's habit!"

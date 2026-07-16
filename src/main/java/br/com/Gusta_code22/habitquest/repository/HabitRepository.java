@@ -16,11 +16,11 @@ public interface HabitRepository extends JpaRepository<Habit, Long> {
         SELECT h FROM Habit h 
         WHERE h.id NOT IN (
             SELECT eh.habit.id FROM ExecutionHistory eh 
-            WHERE eh.hourHabit >= :inicioDoDia AND eh.hourHabit <= :fimDoDia
+            WHERE eh.hourHabit >= :startDay AND eh.hourHabit <= :endDay
         )
     """)
     List<Habit> findHabitsWithoutExecutionToday(
-            @Param("inicioDoDia") LocalDateTime inicioDoDia,
-            @Param("fimDoDia") LocalDateTime fimDoDia
+            @Param("startDay") LocalDateTime startDay,
+            @Param("endDay") LocalDateTime endDay
     );
 }
