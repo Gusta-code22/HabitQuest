@@ -2,6 +2,7 @@ package br.com.Gusta_code22.habitquest.controller;
 
 import br.com.Gusta_code22.habitquest.dto.LoginRequest;
 import br.com.Gusta_code22.habitquest.dto.LoginResponse;
+import br.com.Gusta_code22.habitquest.exception.InvalidHeroCredentialsException;
 import br.com.Gusta_code22.habitquest.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class TokenController {
         var user = userRepository.findByEmail(request.email());
 
         if (user.isEmpty() || !user.get().isLoginCorrect(request, passwordEncoder)){
-            throw new BadCredentialsException("email or password is invalid!");
+            throw new InvalidHeroCredentialsException("email or password is invalid!");
 
         }
 

@@ -1,5 +1,6 @@
 package br.com.Gusta_code22.habitquest.service;
 
+import br.com.Gusta_code22.habitquest.dto.DiscordMessageDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

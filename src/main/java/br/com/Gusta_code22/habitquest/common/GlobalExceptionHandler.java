@@ -112,5 +112,16 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
+    @ExceptionHandler(InvalidHeroCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiError handleInvalidHeroCredentialsException(InvalidHeroCredentialsException ex){
+        return ApiError.builder()
+                .timeStamp(LocalDateTime.now())
+                .code(HttpStatus.UNAUTHORIZED.value())
+                .status(HttpStatus.UNAUTHORIZED.name())
+                .errors(List.of(ex.getMessage()))
+                .build();
+    }
+
 
 }
