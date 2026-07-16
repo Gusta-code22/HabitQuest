@@ -21,7 +21,8 @@ public class NotificationScheduledService {
     // Cron para rodar todo dia às 22h: "segundo minuto hora dia mes dia-da-semana"
 //    @Scheduled(cron = "0 0 22 * * *")
     // Para testar a cada 1 minuto, use: @Scheduled(fixedDelay = 60000)
-    @Scheduled(fixedDelay = 900000)
+//    @Scheduled(fixedDelay = 900000)
+    @Scheduled(fixedDelay = 60000)
     public void verificarHabitosEsquecidos() {
         LocalDate hoje = LocalDate.now();
         LocalDateTime inicioDoDia = hoje.atStartOfDay(); // 00:00:00
