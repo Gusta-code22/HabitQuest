@@ -10,8 +10,12 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition(
         info = @Info(
                 title = "HabitQuest API",
-                version = "1.0.0",
-                description = "Gamified habit tracking API where real-life tasks turn into RPG quests, experience points, and rewards.",
+                version = "1.5.0",
+                description = """
+                Gamified habit tracking API where real-life tasks turn into RPG quests,
+                experience points, and rewards. Habit reminders are sent via webhooks
+                when users fail to complete their daily quests.
+                """,
                 contact = @Contact(
                         name = "Gustavo Miranda",
                         url = "https://github.com/Gusta-code22"
