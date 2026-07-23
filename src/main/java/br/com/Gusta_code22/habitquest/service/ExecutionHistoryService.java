@@ -3,16 +3,15 @@ package br.com.Gusta_code22.habitquest.service;
 import br.com.Gusta_code22.habitquest.domain.ExecutionHistory;
 import br.com.Gusta_code22.habitquest.domain.Habit;
 import br.com.Gusta_code22.habitquest.domain.User;
+import br.com.Gusta_code22.habitquest.exception.ForbiddenException;
 import br.com.Gusta_code22.habitquest.exception.HabitAlreadyExecutedException;
 import br.com.Gusta_code22.habitquest.exception.HabitNotFoundException;
 import br.com.Gusta_code22.habitquest.repository.ExecutionHistoryRepository;
 import br.com.Gusta_code22.habitquest.repository.HabitRepository;
 import br.com.Gusta_code22.habitquest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,9 +35,7 @@ public class ExecutionHistoryService {
                 .orElseThrow(() -> new HabitNotFoundException("Habit not found"));
 
         if (!Objects.equals(habit.getUser().getId(), currentUserId)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    "You cannot register execution in another player's habit!"
-            );
+            throw new ForbiddenException("You cannot register execution in another player's habit!");
         }
         LocalDateTime today = LocalDateTime.now();
 
@@ -98,9 +95,9 @@ public class ExecutionHistoryService {
 
         User user = habit.getUser();
 
-        Integer xpGanho = 10 + (habit.getStreak() * 2);
+        Integer xpGet = 10 + (habit.getStreak() * 2);
 
-        user.setXp(user.getXp() + xpGanho);
+        user.setXp(user.getXp() + xpGet);
 
         Integer xpRequiredLevel = user.getLevel() * 100;
 
