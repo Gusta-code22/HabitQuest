@@ -37,6 +37,28 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
+    @ExceptionHandler(DiscordAlreadyLinkedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleDiscordAlreadyLinkedException(DiscordAlreadyLinkedException ex){
+        return ApiError.builder()
+                .timeStamp(LocalDateTime.now())
+                .code(HttpStatus.BAD_REQUEST.value())
+                .status(HttpStatus.BAD_REQUEST.name())
+                .errors(List.of(ex.getMessage()))
+                .build();
+    }
+
+    @ExceptionHandler(DiscordIdAlreadyInUseException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleDiscordIdAlreadyInUseException(DiscordIdAlreadyInUseException ex){
+        return ApiError.builder()
+                .timeStamp(LocalDateTime.now())
+                .code(HttpStatus.BAD_REQUEST.value())
+                .status(HttpStatus.BAD_REQUEST.name())
+                .errors(List.of(ex.getMessage()))
+                .build();
+    }
+
     @ExceptionHandler(InvalidHabitDataException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleInvalidHabitData(InvalidHabitDataException ex) {
