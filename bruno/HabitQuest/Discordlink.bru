@@ -6,10 +6,18 @@ meta {
 
 post {
   url: http://localhost:8080/discord/link
-  body: none
+  body: json
   auth: inherit
+}
+
+body:json {
+  {
+    "userId": 3,
+    "discordId": "_b12aasdasd98179b87"
+  }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

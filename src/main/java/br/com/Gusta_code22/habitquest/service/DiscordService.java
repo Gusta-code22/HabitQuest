@@ -56,7 +56,7 @@ public class DiscordService {
     private User getUser(DiscordLinkDTO dto) {
         return userRepository.findById(dto.userId())
                 .orElseThrow(() ->
-                        new UserNotFoundException("User not found")
+                        new UserNotFoundException("Usuario Nao encontrado")
                 );
     }
 }
